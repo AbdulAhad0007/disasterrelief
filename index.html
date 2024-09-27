@@ -261,6 +261,8 @@ body {
       <form action="mailto:disasterreliefgovt@gmail.com" method="post" enctype="text/plain">
         <label for="disaster-name">Name of Disaster:</label>
         <select id="disaster-name" name="disaster-name" required>
+          
+          <option value="--select--">--select--</option>
           <option value="earthquake">Earthquake</option>
           <option value="flood">Flood</option>
           <option value="hurricane">Hurricane</option>
@@ -277,8 +279,13 @@ body {
   
         <label for="help">Help Wanted:</label>
         <select id="help" name="help" required>
-          <option value="immediate">Immediate</option>
-          <option value="later">Later</option>
+          
+          <option value="immediate"></option>
+          <option value="select">--select--</option>
+          <option value="immediate">Immediate(only people)</option>
+          <option value="immediate">Immediate(people and money)</option> 
+          <option value="immediate">Later(onlypeople)</option>
+          <option value="immediate">Immediate(people and money)</option>
         </select>
   
         <label for="contact">Contact Number:</label>
