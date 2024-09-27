@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Natural Disaster Quiz</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> 
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <link rel="stylesheet" href="style.css">
   <style>
     body {
@@ -79,7 +84,7 @@
       background-color: #e04a29;
     }
 
-    .button-group {
+    .buttons-group {
       display: flex;
       justify-content: center;
       gap: 20px;
@@ -107,7 +112,7 @@
       color: rgba(255, 255, 255, 0.7);
     }
 
-    #restartButton, #nextQuizButton, #homeButton {
+    #restartbuttons, #nextQuizbuttons, #homebuttons {
       display: none;
       margin-top: 20px;
       background: linear-gradient(135deg, #ff5c33, #ff995b);
@@ -223,21 +228,21 @@
         <label><input type="radio" name="q8" value="Tornado"> Tornado</label>
       </div>
 
-      <!-- Next Button -->
-      <button type="button" id="nextButton">Next</button>
+      <!-- Next buttons -->
+      <button type="buttons" id="nextbuttons">Next</button>
 
-      <!-- Submit Button -->
+      <!-- Submit buttons -->
       <button type="submit" style="display:none;">Submit Quiz</button>
     </form>
 
     <!-- Result Section -->
     <div id="result"></div>
 
-    <!-- Buttons after quiz submission -->
-    <div class="button-group">
-      <button onclick="window.location.href='quiz1.html'" id="restartButton">Restart Quiz</button>
-      <button onclick="window.location.href='quiz2.html'" id="nextQuizButton">Next Quiz</button>
-      <button onclick="window.location.href='index.html'" id="homeButton">Home</button>
+    <!-- buttonss after quiz submission -->
+    <div class="buttons-group">
+      <button onclick="window.location.href='quiz1.html'" id="restartbuttons">Restart Quiz</button>
+      <button onclick="window.location.href='quiz2.html'" id="nextQuizbuttons">Next Quiz</button>
+      <button onclick="window.location.href='index.html'" id="homebuttons">Home</button>
     </div>
   </div>
 
@@ -245,7 +250,7 @@
     <div class="footer-container">
       <div class="footer-content">
         <p>&copy; 2024 Disaster Relief Organization</p>
-        <div class="footer-social-buttons">
+        <div class="footer-social-buttonss">
           <a href="#" target="_blank"><img src="facebook.png" alt="Facebook"></a>
           <a href="#" target="_blank"><img src="twitter.png" alt="Twitter"></a>
           <a href="#" target="_blank"><img src="instagram.png" alt="Instagram"></a>
@@ -258,19 +263,19 @@
   <script>
     let currentQuestion = 0;
     const questions = document.querySelectorAll('.question');
-    const nextButton = document.getElementById('nextButton');
-    const submitButton = document.querySelector('button[type="submit"]');
+    const nextbuttons = document.getElementById('nextbuttons');
+    const submitbuttons = document.querySelector('buttons[type="submit"]');
     const progressBar = document.getElementById('progressBar');
     const resultDiv = document.getElementById('result');
-    const restartButton = document.getElementById('restartButton');
-    const nextQuizButton = document.getElementById('nextQuizButton');
-    const homeButton = document.getElementById('homeButton');
+    const restartbuttons = document.getElementById('restartbuttons');
+    const nextQuizbuttons = document.getElementById('nextQuizbuttons');
+    const homebuttons = document.getElementById('homebuttons');
     
     const correctAnswers = ['Tectonic Plate Movements', 'Earthquakes', 'Earthquake', 'Hurricane', 'Volcanic Eruption', 'Wildfires', 'Saffir-Simpson Scale', 'Drought'];
 
     let userAnswers = [];
 
-    nextButton.addEventListener('click', function() {
+    nextbuttons.addEventListener('click', function() {
       const currentRadio = document.querySelector(`input[name="q${currentQuestion + 1}"]:checked`);
       
       if (!currentRadio) {
@@ -289,8 +294,8 @@
         progressBar.style.width = progress + "%";
 
         if (currentQuestion === questions.length - 1) {
-          nextButton.style.display = 'none';
-          submitButton.style.display = 'block';
+          nextbuttons.style.display = 'none';
+          submitbuttons.style.display = 'block';
         }
       }
     });
@@ -307,22 +312,22 @@
 
       resultDiv.textContent = `You scored ${score} out of ${questions.length}!`;
       resultDiv.style.display = 'block';
-      restartButton.style.display = 'block';
-      nextQuizButton.style.display = 'block';
-      homeButton.style.display = 'block';
-      submitButton.style.display = 'none';
+      restartbuttons.style.display = 'block';
+      nextQuizbuttons.style.display = 'block';
+      homebuttons.style.display = 'block';
+      submitbuttons.style.display = 'none';
     });
 
-    restartButton.addEventListener('click', function() {
+    restartbuttons.addEventListener('click', function() {
       // Restart the quiz
       currentQuestion = 0;
       userAnswers = [];
       resultDiv.style.display = 'none';
-      restartButton.style.display = 'none';
-      nextQuizButton.style.display = 'none';
-      homeButton.style.display = 'none';
-      submitButton.style.display = 'none';
-      nextButton.style.display = 'block';
+      restartbuttons.style.display = 'none';
+      nextQuizbuttons.style.display = 'none';
+      homebuttons.style.display = 'none';
+      submitbuttons.style.display = 'none';
+      nextbuttons.style.display = 'block';
       questions.forEach((q) => q.classList.remove('active'));
       questions[0].classList.add('active');
       progressBar.style.width = "0%";
@@ -330,11 +335,11 @@
   </script>
 
 <script>
-      restartButton.style.display = 'none';
-      nextQuizButton.style.display = 'none';
-      homeButton.style.display = 'none';
-      submitButton.style.display = 'none';
-      nextButton.style.display = 'block';
+      restartbuttons.style.display = 'none';
+      nextQuizbuttons.style.display = 'none';
+      homebuttons.style.display = 'none';
+      submitbuttons.style.display = 'none';
+      nextbuttons.style.display = 'block';
       questions.forEach((q) => q.classList.remove('active'));
       questions[0].classList.add('active');
       progressBar.style.width = "0%";
