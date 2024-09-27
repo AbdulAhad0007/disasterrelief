@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coastal Flood Safety Quiz</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(120deg, #1e90ff 0%, #4682b4 100%);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .quiz-container {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 30px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 800px;
+      margin: 30px auto;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    header {
+      background-color: #4682b4;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 3em;
+      color: white;
+    }
+
+    header p {
+      font-size: 1.2em;
+      margin: 10px 0 0;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .question {
+      display: none;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .active {
+      display: block;
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 12px 25px;
+      background: linear-gradient(135deg, #1e90ff, #4682b4);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #4682b4;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    label {
+      font-size: 1.2em;
+      margin: 5px 0;
+      display: block;
+    }
+
+    #result {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-top: 20px;
+      display: none;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    #restartButton, #nextQuizButton, #homeButton {
+      display: none;
+      margin-top: 20px;
+      background: linear-gradient(135deg, #1e90ff, #4682b4);
+    }
+
+    .progress-bar {
+      background-color: #1e90ff;
+      height: 8px;
+      width: 100%;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .progress {
+      background-color: #fff;
+      height: 100%;
+      width: 0;
+      transition: width 0.5s;
+    }
+
+    .instructions {
+      margin-bottom: 20px;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Coastal Flood Safety Quiz</h1>
+    <p>Learn how to stay safe during coastal floods.</p>
+  </header>
+
+  <div class="quiz-container">
+    <h2>Flood Preparedness</h2>
+    
+    <div class="instructions">
+      <p>Select the correct answer for each question and click 'Next' to continue. Test your knowledge of coastal flood safety!</p>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress" id="progressBar"></div>
+    </div>
+
+    <form id="quizForm">
+      <!-- Question 1 -->
+      <div class="question active">
+        <p>1. What should you do first when a flood warning is issued in your area?</p>
+        <label><input type="radio" name="q1" value="Monitor news and weather alerts"> Monitor news and weather alerts</label>
+        <label><input type="radio" name="q1" value="Ignore it and carry on"> Ignore it and carry on</label>
+        <label><input type="radio" name="q1" value="Head outside to check the water levels"> Head outside to check the water levels</label>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="question">
+        <p>2. What is a safe place to evacuate to during a coastal flood?</p>
+        <label><input type="radio" name="q2" value="A nearby beach"> A nearby beach</label>
+        <label><input type="radio" name="q2" value="High ground"> High ground</label>
+        <label><input type="radio" name="q2" value="Stay at home"> Stay at home</label>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="question">
+        <p>3. What should you avoid driving through during a flood?</p>
+        <label><input type="radio" name="q3" value="Puddles"> Puddles</label>
+        <label><input type="radio" name="q3" value="Flooded roads"> Flooded roads</label>
+        <label><input type="radio" name="q3" value="Open highways"> Open highways</label>
+      </div>
+
+      <!-- Question 4 -->
+      <div class="question">
+        <p>4. How can you prepare your home for an impending coastal flood?</p>
+        <label><input type="radio" name="q4" value="Stock up on food and water"> Stock up on food and water</label>
+        <label><input type="radio" name="q4" value="Move valuables to higher floors"> Move valuables to higher floors</label>
+        <label><input type="radio" name="q4" value="Do nothing"> Do nothing</label>
+      </div>
+
+      <!-- Question 5 -->
+      <div class="question">
+        <p>5. What should you do if your car stalls in floodwater?</p>
+        <label><input type="radio" name="q5" value="Stay in the car"> Stay in the car</label>
+        <label><input type="radio" name="q5" value="Abandon the car and move to higher ground"> Abandon the car and move to higher ground</label>
+        <label><input type="radio" name="q5" value="Try to push the car"> Try to push the car</label>
+      </div>
+
+      <!-- Question 6 -->
+      <div class="question">
+        <p>6. Which of the following should be included in a flood emergency kit?</p>
+        <label><input type="radio" name="q6" value="Books"> Books</label>
+        <label><input type="radio" name="q6" value="Canned food and drinking water"> Canned food and drinking water</label>
+        <label><input type="radio" name="q6" value="Extra clothing"> Extra clothing</label>
+      </div>
+
+      <!-- Question 7 -->
+      <div class="question">
+        <p>7. What should you do if you’re on foot and floodwaters rise suddenly?</p>
+        <label><input type="radio" name="q7" value="Run towards a nearby river"> Run towards a nearby river</label>
+        <label><input type="radio" name="q7" value="Move to higher ground immediately"> Move to higher ground immediately</label>
+        <label><input type="radio" name="q7" value="Wait for rescue"> Wait for rescue</label>
+      </div>
+
+      <!-- Question 8 -->
+      <div class="question">
+        <p>8. What is the primary cause of coastal floods?</p>
+        <label><input type="radio" name="q8" value="Tsunamis"> Tsunamis</label>
+        <label><input type="radio" name="q8" value="High tides and storm surges"> High tides and storm surges</label>
+        <label><input type="radio" name="q8" value="Heavy rainstorms"> Heavy rainstorms</label>
+      </div>
+
+      <!-- Next Button -->
+      <button type="button" id="nextButton">Next</button>
+
+      <!-- Submit Button -->
+      <button type="submit" style="display:none;">Submit Quiz</button>
+    </form>
+
+    <!-- Result Section -->
+    <div id="result"></div>
+
+    <!-- Buttons after quiz submission -->
+    <div class="button-group">
+      <button onclick="window.location.href='quiz3.html'" id="restartButton">Restart Quiz</button>
+      <button onclick="window.location.href='quiz1.html'" id="nextQuizButton">Next Quiz</button>
+      <button onclick="window.location.href='index.html'" id="homeButton">Home</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-content">
+        <p>&copy; 2024 Disaster Relief Organization</p>
+        <div class="footer-social-buttons">
+          <a href="#" target="_blank"><img src="facebook.png" alt="Facebook"></a>
+          <a href="#" target="_blank"><img src="twitter.png" alt="Twitter"></a>
+          <a href="#" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+    
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentQuestion = 0;
+    const questions = document.querySelectorAll('.question');
+    const nextButton = document.getElementById('nextButton');
+    const submitButton = document.querySelector('button[type="submit"]');
+    const resultDiv = document.getElementById('result');
+    const progressBar = document.getElementById('progressBar');
+    const restartButton = document.getElementById('restartButton');
+    const nextQuizButton = document.getElementById('nextQuizButton');
+    const homeButton = document.getElementById('homeButton');
+
+    // Answers key
+    const answers = {
+      q1: "Monitor news and weather alerts",
+      q2: "High ground",
+      q3: "Flooded roads",
+      q4: "Move valuables to higher floors",
+      q5: "Abandon the car and move to higher ground",
+      q6: "Canned food and drinking water",
+      q7: "Move to higher ground immediately",
+      q8: "High tides and storm surges"
+    };
+
+    nextButton.addEventListener('click', function() {
+      if (currentQuestion < questions.length - 1) {
+        questions[currentQuestion].classList.remove('active');
+        currentQuestion++;
+        questions[currentQuestion].classList.add('active');
+
+        const progress = (currentQuestion / (questions.length - 1)) * 100;
+        progressBar.style.width = progress + "%";
+
+        if (currentQuestion === questions.length - 1) {
+          nextButton.style.display = 'none';
+          submitButton.style.display = 'block';
+        }
+      }
+    });
+
+    document.getElementById('quizForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      let score = 0;
+      const formData = new FormData(this);
+
+      for (let [question, answer] of formData.entries()) {
+        if (answers[question] === answer) {
+          score++;
+        }
+      }
+
+      resultDiv.textContent = `You got ${score} out of 8 correct!`;
+      resultDiv.style.display = 'block';
+      submitButton.style.display = 'none';
+
+      // Show buttons
+      restartButton.style.display = 'block';
+      nextQuizButton.style.display = 'block';
+      homeButton.style.display = 'block';
+    });
+
+    // Restart the quiz
+    restartButton.addEventListener('click', function() {
+      currentQuestion = 0;
+      questions.forEach((q) => q.classList.remove('active'));
+      questions[0].classList.add('active');
+      progressBar.style.width = '0%';
+      resultDiv.style.display = 'none';
+      submitButton.style.display = 'none';
+      nextButton.style.display = 'block';
+      restartButton.style.display = 'none';
+      nextQuizButton.style.display = 'none';
+      homeButton.style.display = 'none';
+      document.getElementById('quizForm').reset();
+    });
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disaster Relief | Crisis Management and Recovery</title>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="keywords" content="disaster, management, rescue">
+  <meta name="description" content="contact our organisation for more support and get relief from any disaster.">
+ <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> 
+ <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+ <link rel="stylesheet" href="style.css">
+ <script src="script.js"></script>
+ <style> 
+body {
+    font-family: Arial, sans-serif;
+}
+
+.nav-link {
+    cursor: pointer;
+}
+ .modal {
+    display: none; 
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    overflow-y: auto;
+    max-height: 80vh;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.form-header {
+    display: flex;
+
+
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.contact-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.form-header h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+}
+
+input, textarea {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+    .modal-content {
+        width: 95%;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+    }
+
+    .form-buttons button {
+        margin-top: 10px;
+    }
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.form-section,
+.about-section {
+  flex: 1;
+  min-width: 300px;
+  padding: 20px;
+  margin: 10px;
+}
+
+.form-section {
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+.form-section img.disaster-image {
+  width: 100%;
+  height: auto;
+}
+
+.form-section form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-section label,
+.form-section input,
+.form-section select,
+.form-section textarea {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 8px;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.about-section {
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  padding: 20px;
+}
+
+.about-section h2 {
+  margin-top: 0;
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+.read-more-btn,
+.play-quiz-btn {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.play-quiz-btn {
+  background-color: #28a745;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .form-section,
+  .about-section {
+    max-width: 600px;
+  }
+}
+
+.emergency-image {
+  width: 100px;   
+  height: auto;   
+  display: block;   
+  margin: 10px auto;  
+  border-radius: 8px;   
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+}
+
+.head-emergency {
+  background-color: red;  
+  color: white;            
+  padding: 10px 20px;    
+  border-radius: 5px;      
+  text-decoration: none;
+  font-weight: bold;     
+  display: inline-block;   
+}
+
+.head-emergency:hover {
+  background-color: darkred;
+  text-decoration: none;
+  color: #fff;
+}
+
+ </style>
+</head>
+
+<body> 
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+      <img src="apple-touch-icon.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+      Disaster Relief
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" id="contactUsBtn">Contact Us</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about-section">About Us</a></li>
+      </ul>
+      <div class="footer-social-buttons mr-3">
+        <a onclick="mainTain()" href="#"><img src="facebook.png" alt="Facebook"></a>
+        <a href="#" onclick="mainTain()"><img src="twitter.png" alt="Twitter"></a>
+        <a href="#" onclick="mainTain()"><img src="instagram.png" alt="Instagram"></a>
+      </div>
+      <a href="#emergency" class="head-emergency">Emergency</a>
+      <a href="login.html" class="btn btn-login">LogIn</a>
+    </div>
+  </nav>
+  
+  <div id="contactFormModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+         
+        <div class="form-header">
+            <img src="contact-us.png" alt="Contact Us" class="contact-icon">
+            <h2>Contact Us</h2>
+        </div>
+        
+        <form id="contactForm" action="mailto:disasterreliefgovt@gmail.com" method="POST" enctype="text/plain">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="number">Phone Number:</label>
+            <input type="tel" id="number" name="number" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="orgName">Organization Name:</label>
+            <input type="text" id="orgName" name="orgName">
+
+            <label for="comments">Comments:</label>
+            <textarea id="comments" name="comments" rows="4"></textarea>
+
+            <div class="form-buttons">
+                <button class="byn btn-login" type="submit">Submit</button>
+                <button class="btn btn-login" type="reset">Reset</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+ 
+  <div class="main-container">
+    <video style="filter: blur(8px) brightness(0.6);" autoplay muted loop>
+      <source src="homepage_casta.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="main-content">
+      <h1>Disaster Relief | Effective Disaster Management & Recovery</h1>
+      <p>We provide tools and services to assist in managing disaster relief efforts.</p>
+    </div>
+  </div>
+
+  <h2 style="text-align: center;">Recent Updates</h2>
+  <div class="news-section container"> 
+    <div class="row news-item">
+      <div class="col-md-6 video-container">
+        <video autoplay muted loop>
+          <source src="desktop-typhoon-yagi-0912-5-imageslideshow-fade.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="col-md-6 news-content">
+        <h3>Typhoon Yagi !</h3>
+        <p>Typhoon Yagi, Asia’s most powerful storm this year, has left dozens dead since sweeping across southern China and Southeast Asia last week, leaving a trail of destruction with its intense rainfall and powerful winds.</p>
+        <a href="https://edition.cnn.com/2024/09/13/asia/typhoon-yagi-most-powerful-storm-photos-intl-hnk/index.html" target="_blank" class="read-more-btn">Read more</a>
+      </div>
+    </div> 
+    <div class="row news-item">
+      <div class="col-md-6 news-content">
+        <h3>Bangladesh Floods!</h3>
+        <p>Nearly 2 million people stranded as second wave of devastating floods hits Bangladesh in less than a month.</p>
+        <a href="https://edition.cnn.com/2024/06/22/asia/bangladesh-flooding-sylhet-climate-intl-hnk/index.html" class="read-more-btn">Read more</a>
+      </div>
+      <div class="col-md-6 video-container">
+        <video autoplay muted loop>
+          <source src="rescue-mission-bangladesh-floods-loop-1-video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <div id="map-container">
+    <div id="embed-ded-map-canvas">
+      <iframe src="https://www.google.com/maps/embed/v1/search?q=india&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
+        frameborder="0"></iframe>
+    </div>
+    
+
+    <div class="marker" style="top: 25%; left: 35%;">
+        <img src="earthquake-marker.png" alt="Earthquake Marker">
+      </div>
+      <div class="marker" style="top: 5%; left: 10%;">
+        <img src="earthquake-marker.png" alt="Earthquake Marker">
+      </div>
+    <div class="marker" style="top: 40%; left: 50%;">
+      <img src="earthquake-marker.png" alt="Earthquake Marker">
+    </div>
+    <div class="marker" style="top: 38%; left: 20%;">
+        <img src="earthquake-marker.png" alt="Earthquake Marker">
+      </div>  
+      <div class="marker" style="top: 49%; left: 24%;">
+        <img src="earthquake-marker.png" alt="Earthquake Marker">
+      </div>
+    <div class="marker" style="top: 45%; left: 55%;">
+      <img src="earthquake-marker.png" alt="Earthquake Marker">
+    </div>
+    <div class="marker" style="top: 41%; left: 51%;">
+        <img src="earthquake-marker.png" alt="Earthquake Marker">
+      </div>
+      <div class="marker" style="top: 61%; left: 71%;">
+        <img src="earthquake-marker.png" alt="Earthquake Marker">
+      </div>
+      <div class="marker" style="top:68%; left: 78%;">
+        <img src="earthquake-marker.png" alt="Earthquake Marker">
+      </div>
+      <div class="marker" style="top: 27%; left: 37%;">
+        <img src="earthquake-marker.png" alt="Earthquake Marker">
+      </div>
+      <div class="marker" style="top: 56%; left: 66%;">
+        <img src="earthquake-marker.png" alt="Earthquake Marker">
+      </div>
+
+    <div class="marker" style="top: 60%; left: 40%;">
+      <img src="tornado-marker.png" alt="Tornado Marker">
+    </div>
+    <div class="marker" style="top: 65%; left: 45%;">
+      <img src="tornado-marker.png" alt="Tornado Marker">
+    </div>
+
+    <div class="marker" style="top: 70%; left: 50%;">
+      <img src="flood-marker.png" alt="Flood Marker">
+    </div>
+    <div class="marker" style="top: 25%; left: 55%;">
+      <img src="flood-marker.png" alt="Flood Marker">
+    </div>
+    <div class="marker" style="top: 35%; left: 45%;">
+        <img src="flood-marker.png" alt="Flood Marker">
+      </div>
+      <div class="marker" style="top: 50%; left: 60%;">
+        <img src="flood-marker.png" alt="Flood Marker">
+      </div>
+      <div class="marker" style="top: 80%; left: 90%;">
+        <img src="flood-marker.png" alt="Flood Marker">
+      </div>
+  </div>
+
+  <div id="sidebar">
+    <div class="marker-info">
+        <img src="earthquake-marker.png" alt="Earthquake Marker">
+        <p>Earthquake</p>
+        <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-danger" style="width: 56%">56%</div>
+        </div>
+      </div>
+
+      <div class="marker-info">
+        <img src="tornado-marker.png" alt="tornado Marker">
+        <p>Tornado</p>
+        <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="21" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-warning" style="width: 21%">21%</div>
+        </div>
+      </div>
+
+      <div class="marker-info">
+        <img src="flood-marker.png" alt="flood Marker">
+        <p>Floods</p>
+        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar w-34" style="width: 34%">34%</div>
+        </div>
+      </div>
+
+
+  
+
+  <div class="cards-section container my-5">
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card custom-card text-center">
+          <div class="card-body">
+            <h5 class="card-title">Relief Provided</h5>
+            <p class="card-text">
+             more than <span class="count" data-target="100000">1</span>+ people have received aid and better treatment.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card custom-card text-center">
+          <div class="card-body">
+            <h5 class="card-title">Food Distribution</h5>
+            <p class="card-text"> Over
+              <span class="count" data-target="10000">1</span>+ people have been provided with food and shelter.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card custom-card text-center">
+          <div class="card-body">
+            <h5 class="card-title">Rescue Operations In Progress</h5>
+            <p class="card-text"> Now
+              <span class="count" data-target="300">1</span>+ rescue operations are currently in progress.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+  <div class="container"> 
+    <div class="form-section" id="emergency">
+      <img src="emergency.png" alt="Disaster Image" class="emergency-image">
+      <h2>Emergency Form</h2>
+      <form action="mailto:disasterreliefgovt@gmail.com" method="post" enctype="text/plain">
+        <label for="disaster-name">Name of Disaster:</label>
+        <select id="disaster-name" name="disaster-name" required>
+          <option value="earthquake">Earthquake</option>
+          <option value="flood">Flood</option>
+          <option value="hurricane">Hurricane</option>
+          <option value="wildfire">Wildfire</option>
+          <option value="tornado">Tornado</option>
+          <option value="other">Other</option>
+        </select>
+  
+        <label for="place">Place of Disaster:</label>
+        <input type="text" id="place" name="place" required>
+  
+        <label for="people-injured">Number of People Injured:</label>
+        <input type="number" id="people-injured" name="people-injured" required>
+  
+        <label for="help">Help Wanted:</label>
+        <select id="help" name="help" required>
+          <option value="immediate">Immediate</option>
+          <option value="later">Later</option>
+        </select>
+  
+        <label for="contact">Contact Number:</label>
+        <input type="tel" id="contact" name="contact" required>
+  
+        <label for="explanation">Explanation of Disaster:</label>
+        <textarea id="explanation" name="explanation" rows="4" required></textarea>
+  
+        <div class="form-buttons">
+          <input style="background-color: #28a745; color: #fff;" type="submit" value="Submit">
+          <input style="background-color: #28a745; color: #fff;" type="reset" value="Reset">
+        </div>
+      </form>
+    </div>
+   
+    <div class="about-section" id="about-section">
+      <img src="about.png" alt="Disaster Image" class="emergency-image">
+      <h2>About Us</h2>
+      <p>Welcome to Disaster Relief, your comprehensive resource for effective crisis management and recovery. We are dedicated to providing essential support, tools, and information to communities affected by disasters. Our platform offers timely updates, educational resources, and volunteer opportunities to help individuals and organizations make a meaningful impact. Together, we can empower communities and ensure swift recovery in times of need.</p>
+      <div class="button-container">
+        <a href="about.html" class="read-more-btn">Read More</a>
+      </div>
+      <br>
+      <hr>
+      <img src="vision.png" alt="Disaster Image" class="emergency-image">
+      <h2>Our Vision</h2>
+      <p>At Disaster Relief, our vision is to create a world where communities are better prepared for disasters and recover swiftly through efficient, accessible, and life-saving resources. We strive to build a platform that connects individuals, first responders, and humanitarian organizations, ensuring that vital information and aid reach those in need quickly and effectively. Our goal is to minimize the impact of disasters by fostering resilience, coordination, and timely action.</p>
+      <div class="button-container"> 
+        <a href="quiz1.html" class="play-quiz-btn">Play Quiz</a>
+      </div>
+    </div>
+  </div>
+  
+  
+   
+  <div class="emergency-contact">
+    <h3>Emergency Contact</h3>
+    <p>Contact us at <a href="tel:+11234567890">+91 8506064006 , 8826324063</a> for any emergencies.</p>
+  </div>
+
+   
+  <footer>
+    <div class="footer-container">
+      <div class="footer-content">
+        <p>&copy; 2024 Disaster Relief Organization</p>
+        <div class="footer-social-buttons">
+          <a href="#" onclick="mainTain()"><img src="facebook.png" alt="Facebook"></a>
+          <a href="#" onclick="mainTain()"><img src="twitter.png" alt="Twitter"></a>
+          <a href="#" onclick="mainTain()"><img src="instagram.png" alt="Instagram"></a>
+    
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    var map = L.map('map').setView([51.505, -0.09], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+  </script>
+  <script>
+    function mainTain()
+    {
+      alert("This site is on Maintenance!")
+    }
+  </script>
+  <script> 
+const modal = document.getElementById("contactFormModal");
+const contactUsBtn = document.getElementById("contactUsBtn");
+const closeBtn = document.querySelector(".close-btn");
+ 
+contactUsBtn.onclick = function() {
+    modal.style.display = "flex";
+}; 
+closeBtn.onclick = function() {
+    modal.style.display = "none";
+}; 
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+};
+
+  </script>
+  <script src="script.js"></script>
+</body>
+
+</html>
